@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useEffect } from "react";
+import useVH from "react-vh";
 import styles from "../styles/Home.module.css";
 
 import Card from "../components/card";
@@ -21,6 +22,7 @@ export default function Home({ cardData }) {
     setCard(newCard);
   };
 
+  useVH();
   return (
     <div className={styles.container}>
       <Head>
