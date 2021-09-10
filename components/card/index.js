@@ -2,22 +2,22 @@ import { useState } from "react";
 
 import styles from "../../styles/card/card.module.css";
 
-export default function Card({ cardData, changeCard }) {
+export default function Card({ cardData, prevCard, nextCard }) {
   const [flipped, setFlipped] = useState(false);
   console.log(cardData);
 
-  const prev = (_) => {
-    setFlipped(false);
-    changeCard();
-  };
-
-  const flip = (_) => {
+  const flip = () => {
     setFlipped(!flipped);
   };
 
-  const next = (_) => {
+  const next = () => {
     setFlipped(false);
-    changeCard();
+    nextCard();
+  };
+
+  const prev = () => {
+    setFlipped(false);
+    prevCard();
   };
   return (
     <>

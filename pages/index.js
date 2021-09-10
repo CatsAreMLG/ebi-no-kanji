@@ -12,15 +12,24 @@ import {
   randomMeaning,
   randomHiragana,
   randomKanji,
+  shuffle,
 } from "../lib/data/random";
 
 export default function Home({ cardData }) {
-  const [card, setCard] = useState(cardData[0]);
+  const [deck, setDeck] = useState(cardData);
+  const [current, setCurrent] = useState(0);
 
-  const changeCard = () => {
-    const newCard = randomCard(cardData);
-    setCard(newCard);
+  const prevCard = () => {
+    if (current > 0) setCurrent(current - 1);
+    console.log(current);
   };
+
+  const nextCard = () => {
+    if (current < deck.length - 1) setCurrent(current + 1);
+    console.log(current);
+  };
+
+  console.log(deck);
 
   useVH();
   return (
@@ -32,14 +41,19 @@ export default function Home({ cardData }) {
       </Head>
 
       <main className={styles.main}>
-        <Card cardData={card} changeCard={changeCard} />
+        <Card
+          cardData={deck[current]}
+          prevCard={prevCard}
+          nextCard={nextCard}
+        />
       </main>
     </div>
   );
 }
 
 export async function getServerSideProps() {
+  const shuffled_data = shuffle(cardData);
   return {
-    props: { cardData },
+    props: { cardData: shuffled_data },
   };
 }
